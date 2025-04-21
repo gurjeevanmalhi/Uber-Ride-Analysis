@@ -1,9 +1,50 @@
 -- Business Problems and Solutions
 
+-- Notes
 select *
+from locations
+where city = 'Queens';
+
+select * 
 from trip_details;
 
--- 1. What are the top 5 cities by total revenue generated over the last 3 months?
+select 
+    t.*,
+    l.city as pickup_city,
+    l2.city as dropoff_city,
+    (t.fare_amount + t.surge_fee) as total_revenue
+from trip_details as t
+left join locations as l 
+    on t.pulocationid = l.locationid
+left join locations as l2
+    on t.dolocationid = l2.locationid;
+
+select surge_fee
+from trip_details
+order by surge_fee asc;
+
+
+-- 1. What are the top 5 cities by total revenue generated over the last 3 years?
+
+with pickup_cities as (
+    select
+        (t.fare_amount + t.surge_fee) as total_ride_revenue,
+        l.city as pickup_city,
+        t.pickup_time
+    from trip_details as t 
+    left join locations as l 
+        on t.pulocationid = l.locationid
+    where t.pickup_time >= dateadd(year,-3,getdate())
+)
+
+select top 5
+    pickup_city,
+    round(sum(total_ride_revenue),2) as total_city_revenue
+from pickup_cities
+where pickup_city <> 'N/A'
+group by pickup_city
+order by total_city_revenue desc;
+
 
 -- 2. What is the average trip duration and distance by city and vehicle type?
 
