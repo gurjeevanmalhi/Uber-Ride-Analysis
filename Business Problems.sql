@@ -84,7 +84,7 @@ and pickup_city <> 'N/A'
 group by pickup_city
 order by avg_fare_per_mile desc;
 
--- 6. How prevalent is surge pricing across different cities, and what insights can be drawn about its contribution to revenue and customer cost impact?"
+-- 6. How prevalent is surge pricing across different cities, and what insights can be drawn about its contribution to revenue and customer cost impact?
 
 with trip_counts as (
     select 
@@ -116,9 +116,10 @@ order by
 Among the remaining cities, Manhattan consistently leads across all categories, generating the highest surge revenue in New York.
 The percentage of trips that include a surge fee remains relatively stable across cities, ranging from approximately 60% to 65%, with a minimum of
 at least half of total trips. Similarly, surge costs to the consumer tend to hover around 15%, despite significant differences in
-total trip volume by city. */
+total trip volume by city.
+*/
 
-/* 7. Analyze the distribution of trip durations and their impact on total revenue. How do different trip durations correlate with costs?*/
+-- 7. Analyze the distribution of trip durations and their impact on total revenue. How do different trip durations correlate with costs?
 
 
 -- Finds trip durations in minutes and groups them into short, medium, or long. Calculates total revenue per group
@@ -155,7 +156,8 @@ from avg_stats;
 /* Answer: Despite increasing overall revenue with longer trips, the revenue per minute decreases as the trip duration increases.
 This suggests that while longer trips generate more revenue, they may be less efficient in terms of revenue per minute. This could
 indicate that for longer trips, the fare may be impacted by base fare caps, price strategies, or customer discounts that are less prominent
-in shorter trips.*/
+in shorter trips.
+*/
 
 -- 8. When are the best times for an Uber driver to work throughout the day?
 
@@ -197,7 +199,8 @@ order by total_trips desc;
 
 /* Answer: Uber riders most commonly take trips during the afternoon, followed by night and morning.
 Drivers should work during peak hours at 11am, 3pm, and most notably 5pm. These 3 hours alone will generate
-about 20% of drivers' daily gross pay.*/ 
+about 20% of drivers' daily gross pay.
+*/ 
 
 -- 9. Which kinds of vehicles do Uber riders prefer? Does customer preference change based on trip length?
 
@@ -217,9 +220,8 @@ order by
 
 /* Answer: UberX is the most commonly preferred vehicle. There is insufficient variance between average trip durations
 and distance to establish a correlation between vehicle type and trip durations and/or distance. Despite vehicle selection,
-average trip times steady around 15 minutes and 3.3 miles in distance.*/
-
--- 10. Identify repeat pickup/drop-off pairs (same location ID) and calculate average fare and surge fee for those trips.
+average trip times steady around 15 minutes and 3.3 miles in distance.
+*/
 
 -- 11. What is the average number of passengers per trip by vehicle type?
 
@@ -232,7 +234,7 @@ average trip times steady around 15 minutes and 3.3 miles in distance.*/
 
 -- Answer: 1 passenger per vehicle
 
--- 12. What are the trends in trip volume and revenue month-over-month for each city?
+-- 12. What are the trends in trip volume and revenue for each city by day or week?
 
 -- 13. Identify the top 10 pickup locations with the highest average surge fees.
 
@@ -240,5 +242,55 @@ average trip times steady around 15 minutes and 3.3 miles in distance.*/
 
 -- 15. Rank cities by trip efficiency (distance per minute) and identify the top and bottom 3.
 
+
+/* 
+-- 16. How does the distribution of payment types vary across different regions and cities, 
+This question would help understand regional preferences in payment methods, enabling
+ targeted marketing or promotional strategies based on payment behaviors.
+*/
+
+with payments as(
+
+    select
+    pickup_city,
+    payment_type,
+    -- total transactions per payment type and city
+    count(payment_type) as transaction_count,
+    -- Percent of each type of payment type per city
+    (count(payment_type)*1.0 / sum(count(payment_type)) over(partition by pickup_city)*100) as transactions_pct_per_city,
+    rank() over(partition by pickup_city order by count(payment_type) desc) as rank
+from td_locations
+where pickup_city <> 'N/A'
+group by
+    pickup_city,
+    payment_type
+
+)
+
+select
+    *,
+    avg(transactions_pct_per_city) over(partition by payment_type) as avg_pct_payment,
+    transactions_pct_per_city - avg(transactions_pct_per_city) over(partition by payment_type) as gap_vs_trend
+from payments
+where pickup_city <> 'Newark, New Jersey'
+order by rank asc,
+transaction_count desc;
+
+/* Answer: Uber Pay is the clear preferred payment method for riders, ranking first in
+every city, accounting for 65% of total transactions. Cash follows second, accounting for 
+33% of transactions, with all else totaling less than 1%. Payment preferences by riders remain 
+the same and vary by city. 
+
+-- 17. What is the impact of surge pricing on payment type preferences, 
+/* 
+   This question would assess whether surge pricing influences customers' choice of payment methods (e.g., credit card vs. mobile wallet), 
+   and could guide decisions on payment processing fees or the introduction of new payment options during high-demand periods.
+*/
+
+-- 18. What is the correlation between the payment type used and the average fare amount, 
+/* 
+   This question explores whether customers using specific payment methods tend to pay higher fares or have distinct spending patterns, 
+   potentially informing pricing strategies or customer loyalty initiatives.
+*/
 
 
