@@ -28,6 +28,9 @@ This project aims to analyze Uber trip data from the state of New York, leveragi
 3. Database Design: intitial database set up queries
 4. Completed Dashboard Images: JPG images of dashboard
 5. Images and Icons: contains images and icons used in dashboard
+6. Problem Statement: contains business problems answered for Power BI report
+7. Location Table: dataset for locations
+8. Uber Trip Details: dataset for uber trips
 
 ## Dataset
 
@@ -45,6 +48,7 @@ The dataset consists of two primary tables:
 - Fare Amount: Base fare amount for each trip.
 - Surge Fee: Additional charge applied during high-demand periods.
 - Vehicle: Type of Uber service (vehicle type).
+  
 ### Location Table:
 - LocationID: Unique identifier for each location.
 - Location: Name of the area or neighborhood.
