@@ -30,7 +30,7 @@ This project aims to analyze Uber trip data from the state of New York, leveragi
 5. Images and Icons: contains images and icons used in dashboard
 6. Problem Statement: contains business problems answered for Power BI report
 7. Location Table: dataset for locations
-8. Uber Trip Details: dataset for uber trips
+8. Uber Trip Details: dataset for Uber trips
 
 ## Dataset
 
