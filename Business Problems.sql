@@ -1,47 +1,36 @@
 -- Business Problems and Solutions
 
--- 1. What are the top 5 cities by total revenue generated over the last 3 years?
+select *
+from td_locations;
 
-with pickup_cities as (
-    select
-        (t.fare_amount + t.surge_fee) as total_ride_revenue,
-        l.city as pickup_city,
-        t.pickup_time
-    from trip_details as t 
-    left join locations as l 
-        on t.pulocationid = l.locationid
-    where t.pickup_time >= dateadd(year,-3,getdate())
-)
+-- 1. What are the top 5 cities by total revenue generated over the last 3 years?
 
 select top 5
     pickup_city,
-    round(sum(total_ride_revenue),2) as total_city_revenue
-from pickup_cities
-where pickup_city <> 'N/A'
+    round(sum(fare_amount + surge_fee),2) as total_city_revenue
+from td_locations
+where
+    pickup_time >= dateadd(year,-3,getdate())
+    and pickup_city <> 'N/A'
 group by pickup_city
 order by total_city_revenue desc;
 
 -- Answer: Manhattan, Queens, Brooklyn, The Bronx, Staten Island
 
-
 -- 2. What is the average trip duration and distance by city and vehicle type?
 
 select
-    l.city,
-    t.vehicle,
-    avg(datediff(minute,t.pickup_time,t.drop_off_time)) as avg_trip_duration,
-    round(avg(t.trip_distance),2) as avg_distance
-from trip_details as t 
-left join locations as l 
-    on t.pulocationid = l.locationid
+    pickup_city,
+    vehicle,
+    avg(datediff(minute,pickup_time,drop_off_time)) as avg_trip_duration,
+    avg(trip_distance) as avg_distance
+from td_locations
 group by
-    l.city,
-    t.vehicle
-order by l.city;
+    pickup_city,
+    vehicle
+order by pickup_city;
 
--- 3. What are the top 10 pickup and drop-off location pairs by number of trips?
-
--- 4. What is the average surge fee by hour of day and city? Highlight peak surge periods.
+-- 4. What is the average surge fee by hour in each city? Highlight peak surge periods.
 
 -- Finds average surge fee by pickup hour and city
 with surge_by_hour as(
@@ -54,8 +43,6 @@ with surge_by_hour as(
         pickup_city,
         DATEPART(HOUR,pickup_time)
 
-
-
 ),
 -- Ranks the surcharge by pickup city from highest to lowest
 ranked as(
@@ -66,11 +53,11 @@ ranked as(
 
 )
 
--- Retrieves the pickup hour with the highest avg_surcharge per city
+-- Retrieves the pickup hour with the highest avg_surcharge per city, highlighting peak surge periods per city
 select *
 from ranked
 where surge_rank = 1
-    and pickup_city <> 'N/A'
+   and pickup_city <> 'N/A'
 order by pickup_city;
 
 -- 5. Which cities have the highest average fare per mile traveled? Exclude trips under 1 mile.
@@ -95,6 +82,7 @@ with trip_counts as (
         round(sum(surge_fee),2) as total_surge_revenue,
         round(sum(surge_fee)/sum(fare_amount) * 100,2) as surge_cost_pct
     from td_locations
+    where pickup_city <> 'N/A'
     group by
         pickup_city
 )
@@ -106,7 +94,6 @@ select
     surge_cost_pct,
     total_surge_revenue
 from trip_counts
-where pickup_city <> 'N/A'
 order by
     total_surge_revenue desc,
     surge_cost_pct desc,
@@ -150,10 +137,12 @@ avg_stats as (
 -- Finds revenue per minute for each group
 select
     *,
-    avg_revenue/avg_duration as revenue_per_minute
+    avg_revenue/avg_duration as revenue_per_minute,
+    
 from avg_stats;
 
-/* Answer: Despite increasing overall revenue with longer trips, the revenue per minute decreases as the trip duration increases.
+/*
+Answer: Despite increasing overall revenue with longer trips, the revenue per minute decreases as the trip duration increases.
 This suggests that while longer trips generate more revenue, they may be less efficient in terms of revenue per minute. This could
 indicate that for longer trips, the fare may be impacted by base fare caps, price strategies, or customer discounts that are less prominent
 in shorter trips.
@@ -183,7 +172,7 @@ group by
 
 )
 
--- Finds the busiest hour, based on total trips, during each time of day and calculates percent of revenue generated accordingly
+-- Finds the busiest hour, based on total trips, during each time of day and calculates percent of revenue generated
 select *
 from(
     select
@@ -197,7 +186,7 @@ from(
 where rank = 1
 order by total_trips desc;
 
-/* Answer: Uber riders most commonly take trips during the afternoon, followed by night and morning.
+/* Answer: Uber riders most commonly request trips during the afternoon, followed by night and morning.
 Drivers should work during peak hours at 11am, 3pm, and most notably 5pm. These 3 hours alone will generate
 about 20% of drivers' daily gross pay.
 */ 
@@ -242,7 +231,7 @@ average trip times steady around 15 minutes and 3.3 miles in distance.
 
 -- 15. Rank cities by trip efficiency (distance per minute) and identify the top and bottom 3.
 
-
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 /* 
 -- 16. How does the distribution of payment types vary across different regions and cities, 
 This question would help understand regional preferences in payment methods, enabling
@@ -281,7 +270,7 @@ every city, accounting for 65% of total transactions. Cash follows second, accou
 33% of transactions, with all else totaling less than 1%. Payment preferences by riders remain 
 the same and vary by city. 
 
--- 17. What is the impact of surge pricing on payment type preferences, 
+-- 17. What is the impact of surge pricing on payment type preferences?
 /* 
    This question would assess whether surge pricing influences customers' choice of payment methods (e.g., credit card vs. mobile wallet), 
    and could guide decisions on payment processing fees or the introduction of new payment options during high-demand periods.
