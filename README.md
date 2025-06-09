@@ -1,4 +1,4 @@
-# Uber Trip Analysis
+# Uber Rides Analysis
 
 ## Project Overview
 
