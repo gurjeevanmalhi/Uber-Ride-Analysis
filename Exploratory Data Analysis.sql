@@ -1,4 +1,20 @@
--- Business Problems and Solutions
+-- EDA
+
+--------------------------------------------------------------------------------------------------------------------------
+
+-- Key SQL Functions & Concepts Used:
+-- 1. WITH (CTEs)         -- Used for step-by-step analysis and modular query building
+-- 2. CASE WHEN           -- Categorizes trip durations, times of day, and percentiles
+-- 3. EXTRACT()           -- Extracts parts of timestamps (e.g., hour, duration in minutes)
+-- 4. ROUND()             -- Rounds numeric results for clean outputs
+-- 5. FILTER()            -- Conditional aggregation (e.g., surge trip counts)
+-- 6. PERCENTILE_CONT()   -- Finds percentiles for grouping (trip volumes)
+-- 7. RANK(), LAG()       -- Used to rank and compare across groups and time windows
+-- 8. ROLLUP()            -- Adds subtotals and grand totals in payment breakdowns
+-- 9. Window Functions    -- Used with AVG(), RANK(), LAG() for advanced comparisons
+--10. COALESCE()          -- Handles NULLs in group labels
+
+--------------------------------------------------------------------------------------------------------------------------
 
 -- 1. Analyze the distribution of trip durations and their impact on total revenue. How do different trip durations correlate with costs?
 
@@ -52,6 +68,8 @@ that diminish marginal returns over time. For drivers aiming to optimize earning
 better financial efficiency.
 */
 
+--------------------------------------------------------------------------------------------------------------------------
+
 -- 2. How prevalent is surge pricing across different cities, and what insights can be drawn about its contribution to revenue and customer cost impact?
 
 WITH surge_details AS (
@@ -86,6 +104,8 @@ Across most New York City boroughs, the prevalence of surge pricing is relativel
 around 15% across cities. This indicates a relatively uniform impact of surge pricing on customer costs. Newark, NJ, represented by only a single
 trip, lacks sufficient data for meaningful comparison and should be excluded from further analysis.
 */
+
+--------------------------------------------------------------------------------------------------------------------------
 
 -- 3. When are the best times for an Uber driver to work throughout the day?
 
@@ -133,6 +153,8 @@ Answer: Uber riders most commonly request trips during the afternoon, followed b
 Drivers should work during peak hours at 3pm, 5pm and 11am.
 */ 
 
+--------------------------------------------------------------------------------------------------------------------------
+
 -- 4. What is the distribution of trips across different cities and how do they compare? 
 
 WITH city_trip_counts AS (
@@ -179,7 +201,9 @@ Answer: Manhattan and Queens are positioned in the top percentile, collectively 
 Brooklyn falls within the middle percentile, contributing approximately 20% of the trip volume. The Bronx, along with
 Staten Island, account for the remaining trip counts, highlighting a significant disparity in trip distribution across the boroughs.
 */ 
-		
+
+--------------------------------------------------------------------------------------------------------------------------
+
 -- 5. How does the distribution of payment types vary across different regions and cities?
 
 SELECT
@@ -199,6 +223,8 @@ Answer: Uber Pay is the clear preferred payment method for riders, with the high
 transactions in each city. Cash is second, followed by Amazon Pay and Google Pay. Payment preferences
 by riders remain the same for each city.
 */
+
+--------------------------------------------------------------------------------------------------------------------------
 
 -- 6. Highlight peak surge periods for each city.
 
@@ -234,6 +260,8 @@ can be attributed to lower driver supply in early morning hours. The remaining c
 periods from 5-6pm and at 10pm, indicating busier travel periods during the evening.
 */
 
+--------------------------------------------------------------------------------------------------------------------------
+
 -- 7. Which kinds of vehicles do Uber riders prefer? Does customer preference change based on trip length?
 
 SELECT
@@ -256,6 +284,8 @@ and distance to establish a correlation between vehicle type and trip durations 
 average trip times steady around 15 minutes and 3.3 miles in distance.
 */
 
+--------------------------------------------------------------------------------------------------------------------------
+
 -- 8. Which cities have the highest average fare per mile traveled? Exclude trips under 1 mile.
 
 SELECT
@@ -274,6 +304,8 @@ LIMIT
 	5;
 
 -- Answer: Manhattan, The Bronx, Brooklyn, Staten Island, Queens
+
+--------------------------------------------------------------------------------------------------------------------------
 
 -- 9. What are the top 5 cities by total revenue generated over the last 3 years?
 
@@ -294,6 +326,8 @@ LIMIT
 
 -- Answer: Manhattan, Queens, Brooklyn, The Bronx, Staten Island
 
+--------------------------------------------------------------------------------------------------------------------------
+
 -- 10. What is the average trip duration and distance by city and vehicle type?
 
 SELECT
@@ -309,15 +343,4 @@ GROUP BY
 	VEHICLE
 ORDER BY
 	PICKUP_CITY;
-
-
-
-
-
-
-
-
-
-
-
 
