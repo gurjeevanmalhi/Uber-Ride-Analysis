@@ -13,9 +13,11 @@ Insights and recommendations are provided on the following key areas:
 - Fare and Surge Pricing: Evaluating fare structures and the impact of surge pricing on revenue.
 - Passenger and Trip Behavior: Understanding trends in ride distance, passenger count, and trip frequency.
 
-The SQL queries used to inspect and clean the data for this analysis can be found here: [link]
+The SQL queries used to inspect and clean the data for this analysis can be found here: [link](Business Problems.sql)
+
 Targeted SQL queries regarding various business questions can be found here: [link]
-An interactive Tableau dashboard used to report and explore ride trends can be found here: [link]
+
+An interactive Power BI dashboard used to report and explore ride trends can be found here: [link]
 
 ## Technologies and Key Skills Used
 
