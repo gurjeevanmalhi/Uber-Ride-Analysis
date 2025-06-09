@@ -36,7 +36,9 @@ The company’s main database structure for this project consists of two primary
 
 ### Overview of Findings
 
-![Business Overview](Dashboard%20PDFs/Business%20Overview.png)
+Uber's highest volume and revenue consistently come from Manhattan, however the proportion of fare attributed to surge fees remains steady around 15% across cities — suggesting a uniform customer impact despite regionality. The majority of bookings occur during daytime hours, with Uber Pay being the most common payment method. Despite rider access to various vehicle types, trip costs and durations remain relatively consistent, suggesting Uber’s pricing and routing strategies effectively standardize the rider experience across services.
+
+![Business Overview](Dashboard%20PDFs/Business%20Overview.jpg)
 
 ## Technologies and Key Skills Used
 
