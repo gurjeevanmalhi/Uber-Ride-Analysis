@@ -15,7 +15,7 @@ Insights and recommendations are provided on the following key areas:
 - Fare and Surge Pricing: Evaluating fare structures and the impact of surge pricing on revenue.
 - Passenger and Trip Behavior: Understanding trends in ride distance, passenger count, and trip frequency.
 
-Targeted SQL queries regarding various business questions can be found [here](Business%20Problems.sql).
+Targeted SQL queries regarding various business questions can be found [here](Exploratory%20Data%20Analysis.sql).
 
 An interactive Power BI dashboard used to report and explore ride trends can be found [here](Uber%20Trips%20Dashboard.pbix).
 
@@ -31,6 +31,12 @@ The company’s main database structure for this project consists of two primary
 ![ERD](Entity%20Relationship%20Diagram.png)
 
 ---
+
+## Executive Summary
+
+### Overview of Findings
+
+![Business Overview](Dashboard%20PDFs/Business%20Overview.png)
 
 ## Technologies and Key Skills Used
 
