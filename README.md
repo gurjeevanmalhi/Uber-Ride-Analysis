@@ -27,8 +27,6 @@ The company’s main database structure for this project consists of two primary
 
 - trip_details: Contains detailed information about each Uber ride, including trip times, passenger count, distances, pickup and drop-off locations, payment details, and vehicle type.
 - locations: Contains unique location IDs, neighborhood names, and the city in which each location exists.
-  
-![ER Diagram](images/ERD.png)
 
 ## Technologies and Key Skills Used
 
