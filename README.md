@@ -10,10 +10,9 @@ Insights from this project will be delivered to the Operations, Marketing, and F
 
 Insights and recommendations are provided on the following key areas:
 
-- Trip Volume and Timing: Identifying peak usage periods to support scheduling and driver coverage.
-- Geographic Demand Patterns: Analyzing high and low-demand zones to optimize driver deployment.
-- Fare and Surge Pricing: Evaluating fare structures and the impact of surge pricing on revenue.
-- Passenger and Trip Behavior: Understanding trends in ride distance, passenger count, and trip frequency.
+- Customer Behavior: Analyzing payment preferences, preferred vehicle types, and location patterns to understand rider habits and regional demand.
+- Revenue Trends: Exploring city-level revenue distribution and surge-related income to identify opportunities for profitability and operational efficiency.
+- Ride Times and Duration: Examining ride distributions throughout the day, peak hours and days, and average distances to uncover demand cycles and trip characteristics.
 
 Targeted SQL queries regarding various business questions can be found [here](Exploratory%20Data%20Analysis.sql).
 
@@ -40,45 +39,59 @@ Uber's highest volume and revenue consistently come from Manhattan, however the 
 
 ![Business Overview](Dashboard%20PDFs/Business%20Overview.jpg)
 
+---
+
+## Insights Deep Dive
+
+### Customer Behavior
+
+- Most rides are scheduled during daytime hours, which account for 63% of total ride volume. Demand peaks in the afternoon, followed by night and morning, with the highest activity observed around 3PM, 5PM, and 11AM.
+- UberX is the most preferred service option, representing 37% of all rides. Ride durations and distances remain consistent across vehicle types, suggesting a similar experience across service tiers.
+- Uber Pay is the most commonly used payment method, making up 70% of all transactions across cities.
+
+### Revenue Trends
+
+- Manhattan leads overall revenue regionally, generating $922,669 and accounting for 59% of total ride revenue. This concentration suggests a strong demand hub, likely driven by dense population, tourism, and commercial activity.
+- Surge fees contribute a consistent 15% of total fare revenue across cities, indicating a uniform pricing impact regardless of geography. This stability helps with predictable revenue forecasting and pricing strategy development.
+- Longer rides bring in higher total revenue but yield less per minute, with a 64% drop in revenue per minute when comparing rides over 30 minutes to those between 15–30 minutes. This suggests diminishing financial returns on extended trips.
+
+![Details Analysis](Dashboard%20PDFs/Details%20Analysis.jpg)
+
+### Ride Times and Duration
+
+- Afternoon hours drive the highest ride volume. Ride activity peaks in the afternoon, followed by night and morning. The most requested times are 3 PM, 5 PM, and 11 AM, with a noticeable spike around 5 PM—likely tied to commuter and post-work travel behavior.
+- Saturday records the highest number of ride requests, accounting for 19% of total rides. This indicates increased weekend demand, possibly due to social plans, events, and leisure travel.
+- Average ride durations remain consistent across cities and vehicle types. Despite differences in geography and ride preferences, the average ride lasts around 16 minutes.
+
+![Time Analysis](Dashboard%20PDFs/Time%20Analysis.jpg)
+
+---
+
+## Recommendations
+
+Based on the insights and findings above, we would recommend the Operations, Finance, and Marketing teams to consider the following:
+
+- High volume of rides during daytime and peak hours: Operations should optimize driver schedules and deployment to match peak demand times, especially around 3pm and 5pm, to improve availability and reduce wait times.
+- Uber Pay is the dominant payment method (70%): Finance and Marketing teams can focus on promoting and enhancing the Uber Pay experience, including potential loyalty or incentive programs, to strengthen customer retention.
+- Manhattan accounts for 59% of revenue and shows strong surge pricing impact: Marketing and Operations should prioritize targeted promotions and dynamic driver incentives in Manhattan to capitalize on surge revenue opportunities while ensuring customer satisfaction.
+- Ride distribution peaks on Saturdays (19% of total rides): Marketing campaigns and special offers could be timed to boost weekday ridership, balancing demand and improving revenue stability throughout the week.
+- Longer rides yield lower revenue per minute: Finance and Operations may explore pricing adjustments or incentives encouraging a mix of ride lengths to optimize driver earnings and company profitability.
+
+--- 
+
+## Assumptions and Caveats
+
+Throughout the analysis, the following assumptions were made to manage challenges with the data. These assumptions and caveats are noted below:
+
+- Newark, NJ was excluded from analysis due to lack of sufficent data.
+
 ## Technologies and Key Skills Used
 
 1. PostgreSQL
 2. Power BI
 3. Power Query
 4. DAX
-5. Data Modeling
-6. Data Visualization
-7. Excel
-
-## Files
-
-1. Business Problems: contains queries answering business questions
-2. Dashboard.pbix: Power BI dashboard
-3. Database Design: intitial database set up queries
-4. Completed Dashboard Images: JPG images of dashboard
-5. Images and Icons: contains images and icons used in dashboard
-6. Problem Statement: contains business problems answered for Power BI report
-7. Location Table: dataset for locations
-8. Uber Trip Details: dataset for Uber trips
-
-
-
-### Trip Details Table:
-- Trip ID: Unique identifier for each trip.
-- Pickup Time: Date and time when passenger was picked up.
-- Drop Off Time: Date and time when passenger was dropped off.
-- Passenger Count: Number of passengers in each trip.
-- Trip Distance: Miles traveled during each trip.
-- PULocationID: Pickup location identifier.
-- DOLocationID: Drop-off location identifier.
-- Payment Type: Mode of payment for each trip.
-- Fare Amount: Base fare amount for each trip.
-- Surge Fee: Additional charge applied during high-demand periods.
-- Vehicle: Type of Uber service (vehicle type).
-
-## Location Table
-  
-### Location Table:
-- LocationID: Unique identifier for each location.
-- Location: Name of the area or neighborhood.
-- City: City in which the location exists.
+5. Excel
+6. Data Analysis
+7. Data Modeling
+8. Data Visualization
