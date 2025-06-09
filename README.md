@@ -4,7 +4,9 @@
 
 Uber Technologies Inc. is a global leader in the ride-sharing industry, operating since 2009. The company connects riders and drivers through its mobile platform, offering a scalable and flexible alternative to traditional taxi services. Uber’s business model is built on dynamic pricing, on-demand availability, and widespread geographic coverage. Key business metrics include trip volume, fare revenue, driver utilization, and wait times.
 
-In August 2024, Uber’s Regional Operations team requested a data-driven analysis of ride activity across New York State. Customers had reported concerns about long wait times, inconsistent pricing, and limited driver availability. The objective of this analysis was to identify when and where service gaps are occurring, uncover patterns in rider behavior, and evaluate pricing performance to support decisions around resource planning, pricing adjustments, and market strategy. Insights from this project will be delivered to the Operations, Marketing, and Finance teams. These teams will use the findings to improve driver distribution, develop targeted campaigns based on rider behavior, and evaluate fare structures and the impact of surge pricing.
+In August 2024, Uber’s Regional Operations team requested a data-driven analysis of ride activity across New York State. Customers had reported concerns about long wait times, inconsistent pricing, and limited driver availability. The objective of this analysis was to identify when and where service gaps are occurring, uncover patterns in rider behavior, and evaluate pricing performance to support decisions around resource planning, pricing adjustments, and market strategy.
+
+Insights from this project will be delivered to the Operations, Marketing, and Finance teams to improve driver distribution, develop targeted campaigns based on rider behavior, and evaluate fare structures and the impact of surge pricing.
 
 Insights and recommendations are provided on the following key areas:
 
@@ -13,11 +15,20 @@ Insights and recommendations are provided on the following key areas:
 - Fare and Surge Pricing: Evaluating fare structures and the impact of surge pricing on revenue.
 - Passenger and Trip Behavior: Understanding trends in ride distance, passenger count, and trip frequency.
 
-The SQL queries used to inspect and clean the data for this analysis can be found here: [Business Problems.sql](Business%20Problems.sql)
+Targeted SQL queries regarding various business questions can be found [here](Business%20Problems.sql).
 
-Targeted SQL queries regarding various business questions can be found here: [link]
+An interactive Power BI dashboard used to report and explore ride trends can be found [here](Uber%20Trips%20Dashboard.pbix).
 
-An interactive Power BI dashboard used to report and explore ride trends can be found here: [link]
+---
+
+## Data Structure & Initial Checks
+
+The company’s main database structure for this project consists of two primary tables: trip_details and locations, with a total row count of 104,003 records combined. A description of each table is as follows:
+
+- trip_details: Contains detailed information about each Uber ride, including trip times, passenger count, distances, pickup and drop-off locations, payment details, and vehicle type.
+- locations: Contains unique location IDs, neighborhood names, and the city in which each location exists.
+  
+![ER Diagram](images/ERD.png)
 
 ## Technologies and Key Skills Used
 
@@ -40,9 +51,7 @@ An interactive Power BI dashboard used to report and explore ride trends can be 
 7. Location Table: dataset for locations
 8. Uber Trip Details: dataset for Uber trips
 
-## Dataset
 
-The dataset consists of two primary tables:
 
 ### Trip Details Table:
 - Trip ID: Unique identifier for each trip.
