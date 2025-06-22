@@ -1,5 +1,12 @@
 # Uber Rides Analysis
 
+---
+
+> **Disclaimer:** I am not professionally affiliated with Uber or any of its subsidiaries. The scenario in the Project Overview section is entirely fictional and was designed to emulate real world challenges for my portfolio.
+
+---
+
+
 ## Project Overview
 
 Uber Technologies Inc. is a global leader in the ride-sharing industry, operating since 2009. The company connects riders and drivers through its mobile platform, offering a scalable and flexible alternative to traditional taxi services. Uber’s business model is built on dynamic pricing, on-demand availability, and widespread coverage. Key business metrics include trip volume, fare revenue, driver utilization, and wait times.
